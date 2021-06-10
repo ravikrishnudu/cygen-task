@@ -3,9 +3,9 @@ import Post from "./Posts";
 
 function App() {
   return (
-    <div>
+    <>
       <Post />
-    </div>
+    </>
   );
 }
 
