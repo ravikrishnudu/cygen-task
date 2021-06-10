@@ -32,14 +32,17 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
-}));
-
-const useSearchStyle = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(1),
-    width: "25ch",
+  container: {
+    width: "100%",
   },
 }));
+
+// const useSearchStyle = makeStyles((theme) => ({
+//   root: {
+//     margin: theme.spacing(1),
+//     width: "25ch",
+//   },
+// }));
 
 async function getPosts() {
   const response = await axios.get(
@@ -74,7 +77,7 @@ function Posts() {
   // console.log(posts);
 
   const getUsersName = (id) => {
-    if (id) {
+    if (id && users.length !== 0) {
       const requiredUsersArr = users.find((user) => user.id === id);
       return requiredUsersArr.name;
     }
@@ -110,14 +113,14 @@ function Posts() {
   };
 
   const classes = useStyles();
-  const searchStyles = useSearchStyle();
+  // const searchStyles = useSearchStyle();
   // console.log(posts);
 
   return (
     <div>
       <Container className={classes.root}>
         <TableContainer component={Paper}>
-          <div style={{ width: "100%" }}>
+          <div className={classes.container}>
             <Box display="flex" p={1} bgcolor="background.paper">
               <Box p={1} flexGrow={1} bgcolor="white.300">
                 <h3>Posts</h3>
@@ -135,7 +138,7 @@ function Posts() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {posts &&
+              {posts.length !== 0 &&
                 posts
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((post, id) => {
@@ -147,7 +150,7 @@ function Posts() {
 
                         <TableCell>
                           <IconButton
-                            onClick={(id) => {
+                            onClick={() => {
                               setSelected(id);
                               setOpen(true);
                             }}
@@ -164,7 +167,7 @@ function Posts() {
             </TableBody>
           </Table>
           <TablePagination
-            rowsPerPage={[5, 10, 15, 25, 75, 99]}
+            rowsPerPageOptions={[5, 10, 15, 25, 75, 99]}
             count={posts.length}
             rowsPerPage={rowsPerPage}
             page={page}

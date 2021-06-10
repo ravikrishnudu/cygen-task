@@ -4,9 +4,7 @@ import Post from "./Posts";
 function App() {
   return (
     <div>
-      <div>
-        <Post />
-      </div>
+      <Post />
     </div>
   );
 }
