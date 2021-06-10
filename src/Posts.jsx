@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import UpdatePost from "./UpdatePost";
 import axios from "axios";
 import Container from "@material-ui/core/Container";
 import EditIcon from "@material-ui/icons/Edit";
@@ -19,6 +20,10 @@ import {
 // import SearchBar from "material-ui-search-bar";
 
 import { makeStyles } from "@material-ui/core/styles";
+import MuiAlert from "@material-ui/lab/Alert";
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,8 +84,29 @@ function Posts() {
   const onChangePage = (event, nextPage) => {
     setPage(nextPage);
   };
+
   const onChangeRowsPerPage = (event) => {
     setrowsPerPage(event.target.value);
+  };
+
+  const updatePost = async (id, title, body) => {
+    try {
+      const obj = posts.find((post) => post.id === id);
+      const newObj = { ...obj, title, body };
+      const updatedPost = await axios.put(
+        "https://jsonplaceholder.typicode.com/posts/" + id,
+        newObj
+      );
+      setPosts(posts.map((post) => (post.id === id ? updatedPost.data : post)));
+      setSnackBarType("success");
+      setShowSnackBar(true);
+    } catch (error) {
+      setSnackBarType("error");
+      setShowSnackBar(true);
+      // console.log({ error });
+    } finally {
+      setOpen(false);
+    }
   };
 
   const styles = useStyles();
@@ -146,17 +172,22 @@ function Posts() {
             onChangeRowsPerPage={onChangeRowsPerPage}
           />
         </TableContainer>
-        <CustomizedDialogs
+        <UpdatePost
           open={open}
           setOpen={setOpen}
-          post={Posts[selected] ? Posts[selected] : {}}
+          post={posts[selected] ? posts[selected] : {}}
           updatePost={updatePost}
         />
-        <Snackbar>
+        <Snackbar
           open={showSnackBar}
           autoHideDuration={2000}
-          post ={posts[selected] ? posts[selected] : {}}
           onClose={setShowSnackBar}
+        >
+          <Alert onClose={setShowSnackBar} severity={snackBarType}>
+            {snackBarType === "success"
+              ? "Post Updated Successfully"
+              : "Error message"}
+          </Alert>
         </Snackbar>
       </Container>
     </div>
