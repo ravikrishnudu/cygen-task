@@ -1,17 +1,21 @@
+import React, { useEffect, useState } from "react";
+import { withStyles } from "@material-ui/core/styles";
+
 import {
   Button,
   Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   FormControl,
   FormLabel,
+  IconButton,
   Input,
-  withStyles,
+  Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import CloseIcon from "@material-ui/icons/Close";
+import MuiDialogContent from "@material-ui/core/DialogContent";
+import MuiDialogActions from "@material-ui/core/DialogActions";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
 
-const Styles = (theme) => ({
+const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
@@ -24,9 +28,37 @@ const Styles = (theme) => ({
   },
 });
 
-// const DialogTitle = withStyles(Styles)((props) => {});
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
 
-function UpdatePost(props) {
+const DialogActions = withStyles((theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
+
+function PostUpdate(props) {
   const [title, setTitle] = useState(props.post.title ? props.post.title : "");
   const [body, setBody] = useState(props.post.body ? props.post.body : "");
   const [changed, setChanged] = useState(false);
@@ -98,4 +130,4 @@ function UpdatePost(props) {
   );
 }
 
-export default UpdatePost;
+export default PostUpdate;

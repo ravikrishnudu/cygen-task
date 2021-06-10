@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UpdatePost from "./UpdatePost";
+import PostUpdate from "./PostUpdate";
 import axios from "axios";
 import Container from "@material-ui/core/Container";
 import EditIcon from "@material-ui/icons/Edit";
@@ -71,7 +71,7 @@ function Posts() {
       setUsers(res);
     });
   }, []);
-  console.log(posts);
+  // console.log(posts);
 
   const getUsersName = (id) => {
     if (id) {
@@ -109,13 +109,13 @@ function Posts() {
     }
   };
 
-  const styles = useStyles();
+  const classes = useStyles();
   const searchStyles = useSearchStyle();
-  console.log(posts);
+  // console.log(posts);
 
   return (
     <div>
-      <Container className={styles.root}>
+      <Container className={classes.root}>
         <TableContainer component={Paper}>
           <div style={{ width: "100%" }}>
             <Box display="flex" p={1} bgcolor="background.paper">
@@ -147,7 +147,7 @@ function Posts() {
 
                         <TableCell>
                           <IconButton
-                            onClick={() => {
+                            onClick={(id) => {
                               setSelected(id);
                               setOpen(true);
                             }}
@@ -172,7 +172,7 @@ function Posts() {
             onChangeRowsPerPage={onChangeRowsPerPage}
           />
         </TableContainer>
-        <UpdatePost
+        <PostUpdate
           open={open}
           setOpen={setOpen}
           post={posts[selected] ? posts[selected] : {}}
