@@ -3,7 +3,7 @@ Cygen assignment
 Demo
 https://cygen-task.vercel.app/
 
-Tech Stack
+Tech Stack 
 Client: ReactJs,Material-ui
 
 
