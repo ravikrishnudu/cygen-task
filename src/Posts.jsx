@@ -17,7 +17,7 @@ import {
   TablePagination,
   TableRow,
 } from "@material-ui/core";
-// import SearchBar from "material-ui-search-bar";
+import SearchBar from "material-ui-search-bar";
 
 import { makeStyles } from "@material-ui/core/styles";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -38,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const useSearchStyle = makeStyles((theme) => ({
-//   root: {
-//     margin: theme.spacing(1),
-//     width: "25ch",
-//   },
-// }));
+const useSearchStyle = makeStyles((theme) => ({
+  root: {
+    margin: theme.spacing(1),
+    width: "25ch",
+  },
+}));
 
 async function getPosts() {
   const response = await axios.get(
@@ -114,7 +114,7 @@ function Posts() {
   };
 
   const classes = useStyles();
-  // const searchStyles = useSearchStyle();
+  const searchStyles = useSearchStyle();
   // console.log(posts);
 
   return (
@@ -126,7 +126,9 @@ function Posts() {
               <Box p={1} flexGrow={1} bgcolor="white.300">
                 <h3>Posts</h3>
               </Box>
-              <Box>{/* <SearchBar className={searchStyles.root} /> */}</Box>
+              <Box>
+                <SearchBar className={searchStyles.root} />
+              </Box>
             </Box>
           </div>
           <Table>
