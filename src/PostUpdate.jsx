@@ -27,7 +27,7 @@ function PostUpdate({ open, post, setOpen, updatePost }) {
     } else {
       setChanged(false);
     }
-  }, [title, body]);
+  }, [title, body, post]);
 
   const handleClose = () => {
     setOpen(false);
