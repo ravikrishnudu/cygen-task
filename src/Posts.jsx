@@ -93,25 +93,25 @@ function Posts() {
     setrowsPerPage(event.target.value);
   };
 
-  const updatePost = async (id, title, body) => {
-    try {
-      const obj = posts.find((post) => post.id === id);
-      const newObj = { ...obj, title, body };
-      const updatedPost = await axios.put(
-        "https://jsonplaceholder.typicode.com/posts/" + id,
-        newObj
-      );
-      setPosts(posts.map((post) => (post.id === id ? updatedPost.data : post)));
-      setSnackBarType("success");
-      setShowSnackBar(true);
-    } catch (error) {
-      setSnackBarType("error");
-      setShowSnackBar(true);
-      // console.log({ error });
-    } finally {
-      setOpen(false);
-    }
-  };
+  // const updatePost = async (id, title, body) => {
+  //   try {
+  //     const obj = posts.find((post) => post.id === id);
+  //     const newObj = { ...obj, title, body };
+  //     const updatedPost = await axios.put(
+  //       "https://jsonplaceholder.typicode.com/posts/" + id,
+  //       newObj
+  //     );
+  //     setPosts(posts.map((post) => (post.id === id ? updatedPost.data : post)));
+  //     setSnackBarType("success");
+  //     setShowSnackBar(true);
+  //   } catch (error) {
+  //     setSnackBarType("error");
+  //     setShowSnackBar(true);
+  //     // console.log({ error });
+  //   } finally {
+  //     setOpen(false);
+  //   }
+  // };
 
   const classes = useStyles();
   const searchStyles = useSearchStyle();
@@ -178,12 +178,12 @@ function Posts() {
             onChangeRowsPerPage={onChangeRowsPerPage}
           />
         </TableContainer>
-        <PostUpdate
+        {/* <PostUpdate
           open={open}
           setOpen={setOpen}
           post={posts[selected] ? posts[selected] : {}}
           updatePost={updatePost}
-        />
+        /> */}
         <Snackbar
           open={showSnackBar}
           autoHideDuration={2000}
