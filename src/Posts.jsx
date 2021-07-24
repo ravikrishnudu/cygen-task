@@ -184,7 +184,7 @@ function Posts() {
           post={posts[selected] ? posts[selected] : {}}
           updatePost={updatePost}
         />
-        <Snackbar
+        {/* <Snackbar
           open={showSnackBar}
           autoHideDuration={2000}
           onClose={setShowSnackBar}
@@ -194,7 +194,7 @@ function Posts() {
               ? "Post Updated Successfully"
               : "Error message"}
           </Alert>
-        </Snackbar>
+        </Snackbar> */}
       </Container>
     </div>
   );
